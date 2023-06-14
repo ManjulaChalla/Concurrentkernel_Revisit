@@ -36,7 +36,7 @@ This sample is migrated from NVIDIA CUDA sample. See the [concurrentKernels](htt
 |:---                        |:---
 | OS                         | Ubuntu* 20.04
 | Hardware                   | Intel® Gen9, Gen11 and Intel® Xeon(R) Gold 6128 CPU
-| Software                   | SYCLomatic version 2023.0, Intel oneAPI Base Toolkit version 2023.0
+| Software                   | SYCLomatic version 2023.1, Intel oneAPI Base Toolkit version 2023.1
 
 For more information on how to install SYCLomatic Tool, visit [Migrate from CUDA* to C++ with SYCL*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/training/migrate-from-cuda-to-cpp-with-sycl.html#gs.v3584e).
 
@@ -67,7 +67,7 @@ The choice to create an in-order or out-of-order queue is made at queue construc
 For this sample, the SYCLomatic Tool automatically migrates 100% of the CUDA code to SYCL. Follow these steps to generate the SYCL code using the compatibility tool:
 
 1. git clone https://github.com/NVIDIA/cuda-samples.git
-2. cd cuda-samples/Samples/5_Domain_Specific/quasirandomGenerator/
+2. cd cuda-samples/Samples/0_Introduction/concurrentKernels
 3. Generate a compilation database with intercept-build
    ```
    intercept-build make
