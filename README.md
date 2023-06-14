@@ -13,13 +13,12 @@ The `Concurrent Kernels` sample shows the execution of multiple kernels on the d
 
 > **Note**: We use Intel® open-sources SYCLomatic tool which assists developers in porting CUDA code automatically to SYCL code. To finish the process, developers complete the rest of the coding manually and then tune to the desired level of performance for the target architecture. User's can also use SYCLomatic Tool which comes along with the Intel® oneAPI Base Toolkit.
 
-This sample contains three versions of the code in the following folders:
+This sample contains two versions of the code in the following folders:
 
-| Folder Name             | Description
-|:---                     |:---
-| `01_sycl_dpct_output`   | Contains output of Intel® DPC++ Compatibility Tool used to migrate SYCL-compliant code from CUDA code. This SYCL code has some unmigrated code that has to be manually fixed to get full functionality. (The code does not functionally work as supplied.)
-| `02_sycl_dpct_migrated` | Contains Intel® DPC++ Compatibility Tool migrated SYCL code from CUDA code with manual changes done to fix the unmigrated code to work functionally.
-| `03_sycl_migrated`      | Contains manually migrated SYCL code from CUDA code.
+| Folder Name                   | Description
+|:---                           |:---
+| `01_dpct_output`              | Contains output of SYCLomatic Tool used to migrate SYCL-compliant code from CUDA code. This SYCL code has some unmigrated code that has to be manually fixed to get full functionality. (The code does not functionally work as supplied.)
+| `02_sycl_migrated`            | Contains manually migrated SYCL code from CUDA code.
 
 ### Workflow For CUDA to SYCL migration
 
