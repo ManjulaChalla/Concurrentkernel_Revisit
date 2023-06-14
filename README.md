@@ -110,7 +110,7 @@ To summarise, in-order queues guarantee the order of execution of commands, whil
    $ make
    ```
 
-   By default, this command sequence will build the `01_dpct_output`, `02_sycl_migrated_optimized` version of the program.
+   By default, this command sequence will build the `01_dpct_output`, `02_sycl_migrated` version of the program.
 
 3. Run the program.
    
@@ -126,11 +126,11 @@ To summarise, in-order queues guarantee the order of execution of commands, whil
    ```
  4. Run the program.
    
-   Run `02_sycl_migrated_optimized` on GPU.
+   Run `02_sycl_migrated` on GPU.
    ```
    make run_smo
    ```  
-   Run `02_sycl_migrated_optimized` on CPU.
+   Run `02_sycl_migrated` on CPU.
    ```
    export ONEAPI_DEVICE_SELECTOR=cpu
    make run_smo
