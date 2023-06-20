@@ -3,7 +3,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
 include_directories(${CMAKE_SOURCE_DIR}/01_dpct_output/Common/)
 include_directories(${CMAKE_SOURCE_DIR}/01_dpct_output/include/)
 
-add_executable (01_dpct_output Samples/5_Domain_Specific/quasirandomGenerator/quasirandomGenerator.cpp.dp.cpp Samples/5_Domain_Specific/quasirandomGenerator/quasirandomGenerator_gold.cpp Samples/5_Domain_Specific/quasirandomGenerator/quasirandomGenerator_kernel.dp.cpp)
+add_executable (01_dpct_output )
 target_link_libraries(01_dpct_output sycl)
 
 add_custom_target (run cd ${CMAKE_SOURCE_DIR}/01_dpct_output/ && ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/01_dpct_output)
