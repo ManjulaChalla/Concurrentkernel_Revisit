@@ -67,7 +67,7 @@ The choice to create an in-order or out-of-order queue is made at queue construc
 For this sample, the SYCLomatic Tool automatically migrates 100% of the CUDA code to SYCL. Follow these steps to generate the SYCL code using the compatibility tool:
 
 1. git clone https://github.com/NVIDIA/cuda-samples.git
-2. cd cuda-samples/Samples/0_Introduction/concurrentKernels
+2. cd cuda-samples/Samples/0_Introduction/concurrentKernels/
 3. Generate a compilation database with intercept-build
    ```
    intercept-build make
