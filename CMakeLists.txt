@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.4.0)
 
 set(CMAKE_CXX_COMPILER "icpx")
 
-project (guided_quasirandomGenerator_SYCLmigration)
+project (Concurrentkernel_Revisit)
 # Set default build type to RelWithDebInfo if not specified
 if (NOT CMAKE_BUILD_TYPE)
 	message (STATUS "Default CMAKE_BUILD_TYPE not set using Release with Debug Info")
@@ -20,5 +20,5 @@ if (BUILD_DPCT_MIGRATED_SUBPROJECT)
 	add_subdirectory (01_dpct_output)
 endif ()
 if (BUILD_SYCL_MIGRATED_SUBPROJECT)
-        add_subdirectory (02_sycl_migrated)
+    add_subdirectory (02_sycl_migrated)
 endif ()
