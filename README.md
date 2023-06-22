@@ -101,9 +101,7 @@ For this sample, the SYCLomatic Tool automatically migrates 100% of the CUDA cod
    make run
    unset ONEAPI_DEVICE_SELECTOR 
    ```
- 4. Run the program.
-   
-   Run `02_sycl_migrated` on GPU.
+4. Run `02_sycl_migrated` on GPU.
    ```
    make run_sm
    ```  
