@@ -42,13 +42,11 @@ For more information on how to install SYCLomatic Tool, visit [Migrate from CUDA
 
 ## Key Implementation Details
 
+This sample demonstrates the migration of the following prominent CUDA feature: 
+- Streams and Event Management
+- Reduction
+
 concurrentKernels involves a kernel that does no real work but runs at least for a specified number of iterations.
-
->**Note**: This sample demonstrates the CUDA concurrentKernels using key concepts such as CUDA streams and Performance Strategies.
-
-SYCL has two kinds of queues that a programmer can create and use to submit kernels for execution.
-
-The choice to create an in-order or out-of-order queue is made at queue construction time through the property sycl::property::queue::in_order(). By default, when no property is specified, the queue is out-of-order.
 
 ## Build the `Concurrent Kernels` Sample for CPU and GPU
 
