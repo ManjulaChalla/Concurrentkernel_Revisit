@@ -63,11 +63,6 @@ void sum(clock_t *d_clocks, int N, const sycl::nd_item<3> &item_ct1,
   }
 
   s_clocks[item_ct1.get_local_id(2)] = my_sum;
-  /*
-  DPCT1065:0: Consider replacing sycl::nd_item::barrier() with
-  sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better
-  performance if there is no access to global memory.
-  */
   item_ct1.barrier();
 
   for (int i = 16; i > 0; i /= 2) {
@@ -76,11 +71,6 @@ void sum(clock_t *d_clocks, int N, const sycl::nd_item<3> &item_ct1,
           s_clocks[item_ct1.get_local_id(2) + i];
     }
 
-    /*
-    DPCT1065:1: Consider replacing sycl::nd_item::barrier() with
-    sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better
-    performance if there is no access to global memory.
-    */
     item_ct1.barrier();
   }
 
@@ -117,11 +107,6 @@ int main(int argc, char **argv) {
       << q_ct1.get_device().get_info<sycl::info::device::max_compute_units>()
       << " multi-processors" << std::endl;
 
-  /*
-  DPCT1051:17: SYCL does not support a device property functionally compatible
-  with concurrentKernels. It was migrated to true. You may need to adjust the
-  value of true for the specific device.
-  */
   if ((true == 0)) {
     printf("> GPU does not support concurrent kernel execution\n");
     printf("  CUDA kernel runs will be serialized\n");
@@ -178,11 +163,6 @@ int main(int argc, char **argv) {
       q_ct1.get_device().get_info<sycl::info::device::max_clock_frequency>());
 #endif
 
-  /*
-  DPCT1012:16: Detected kernel execution time measurement pattern and generated
-  an initial code for time measurements in SYCL. You can change the way time is
-  measured depending on your goals.
-  */
   sycl::event stop_event_streams_nstreams_1;
   start_event_ct1 = std::chrono::steady_clock::now();
   *start_event = q_ct1.ext_oneapi_submit_barrier();
@@ -199,16 +179,7 @@ int main(int argc, char **argv) {
           });
     });
     total_clocks += time_clocks;
-    /*
-    DPCT1012:19: Detected kernel execution time measurement pattern and
-    generated an initial code for time measurements in SYCL. You can change the
-    way time is measured depending on your goals.
-    */
-    /*
-    DPCT1024:20: The original code returned the error code that was further
-    consumed by the program logic. This original code was replaced with 0. You
-    may need to rewrite the program logic consuming the error code.
-    */
+   
     kernelEvent_ct1_i = std::chrono::steady_clock::now();
 
     *kernelEvent[i] = streams[i]->ext_oneapi_submit_barrier();
@@ -238,16 +209,7 @@ int main(int argc, char **argv) {
   // processing other tasks in parallel
 
   // in this sample we just wait until the GPU is done
-  /*
-  DPCT1012:21: Detected kernel execution time measurement pattern and generated
-  an initial code for time measurements in SYCL. You can change the way time is
-  measured depending on your goals.
-  */
-  /*
-  DPCT1024:22: The original code returned the error code that was further
-  consumed by the program logic. This original code was replaced with 0. You may
-  need to rewrite the program logic consuming the error code.
-  */
+
   q_ct1.wait_and_throw();
   stop_event_streams_nstreams_1.wait();
   stop_event_ct1 = std::chrono::steady_clock::now();
