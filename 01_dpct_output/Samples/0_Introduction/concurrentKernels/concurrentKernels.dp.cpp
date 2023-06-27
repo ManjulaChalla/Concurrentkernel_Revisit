@@ -33,21 +33,20 @@
 
 // Devices of compute capability 2.0 or higher can overlap the kernels
 //
-#include <sycl/sycl.hpp>
-#include <dpct/dpct.hpp>
-#include <stdio.h>
-
 #include <helper_cuda.h>
 #include <helper_functions.h>
+#include <stdio.h>
+
 #include <chrono>
+#include <dpct/dpct.hpp>
+#include <sycl/sycl.hpp>
 
 // This is a kernel that does no real work but runs at least for a specified
 // number of clocks
-void clock_block(clock_t *d_o, clock_t clock_count){
- for(int i=0;i<500000;i++)
-{
-  d_o[0] = d_o[0]+i;
-}
+void clock_block(clock_t *d_o, clock_t clock_count) {
+  for (int i = 0; i < 500000; i++) {
+    d_o[0] = d_o[0] + i;
+  }
 }
 
 // Single warp reduction kernel

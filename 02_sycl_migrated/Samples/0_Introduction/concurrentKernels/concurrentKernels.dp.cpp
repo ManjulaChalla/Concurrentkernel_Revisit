@@ -33,21 +33,20 @@
 
 // Devices of compute capability 2.0 or higher can overlap the kernels
 //
-#include <sycl/sycl.hpp>
-#include <dpct/dpct.hpp>
-#include <stdio.h>
-
 #include <helper_cuda.h>
 #include <helper_functions.h>
+#include <stdio.h>
+
 #include <chrono>
+#include <dpct/dpct.hpp>
+#include <sycl/sycl.hpp>
 
 // This is a kernel that does no real work but runs at least for a specified
 // number of clocks
-void clock_block(clock_t *d_o, clock_t clock_count){
- for(int i=0;i<500000;i++)
-{
-  d_o[0] = d_o[0]+i;
-}
+void clock_block(clock_t *d_o, clock_t clock_count) {
+  for (int i = 0; i < 500000; i++) {
+    d_o[0] = d_o[0] + i;
+  }
 }
 
 // Single warp reduction kernel
@@ -111,12 +110,12 @@ int main(int argc, char **argv) {
             << q_ct1.get_device().get_info<sycl::info::device::name>()
             << std::endl;
 
-  std::cout << "> Detected Compute SM "
-            << q_ct1.get_device().get_info<sycl::info::device::version>()
-            << " hardware with "
-            << q_ct1.get_device()
-                   .get_info<sycl::info::device::max_compute_units>()
-            << " multi-processors" << std::endl;
+  std::cout
+      << "> Detected Compute SM "
+      << q_ct1.get_device().get_info<sycl::info::device::version>()
+      << " hardware with "
+      << q_ct1.get_device().get_info<sycl::info::device::max_compute_units>()
+      << " multi-processors" << std::endl;
 
   /*
   DPCT1051:17: SYCL does not support a device property functionally compatible
@@ -128,24 +127,24 @@ int main(int argc, char **argv) {
     printf("  CUDA kernel runs will be serialized\n");
   }
 
-
   // allocate host memory
   clock_t *a = 0;  // pointer to the array data in host memory
-  
+
   a = (clock_t *)sycl::malloc_host(nbytes, q_ct1);
 
   // allocate device memory
   clock_t *d_a = 0;  // pointers to data and init value in the device memory
-  
+
   d_a = (clock_t *)sycl::malloc_device(nbytes, q_ct1);
 
   // allocate and initialize an array of stream handles
-    sycl::queue **streams =
+  sycl::queue **streams =
       (sycl::queue **)malloc(nstreams * sizeof(sycl::queue *));
 
-    for (int i = 0; i < nstreams; i++) {
+  for (int i = 0; i < nstreams; i++) {
     streams[i] = (sycl::queue *)malloc(nstreams * sizeof(sycl::queue));
-    *streams[i] = sycl::queue(sycl::default_selector_v, dpct::exception_handler);
+    *streams[i] =
+        sycl::queue(sycl::default_selector_v, dpct::exception_handler);
   }
 
   // create CUDA event handles
@@ -174,10 +173,9 @@ int main(int argc, char **argv) {
   // prevent hangs reduce time_clocks.
   clock_t time_clocks = (clock_t)(kernel_time * (deviceProp.clockRate / 100));
 #else
-  clock_t time_clocks =
-      (clock_t)(kernel_time *
-                q_ct1.get_device()
-                    .get_info<sycl::info::device::max_clock_frequency>());
+  clock_t time_clocks = (clock_t)(
+      kernel_time *
+      q_ct1.get_device().get_info<sycl::info::device::max_clock_frequency>());
 #endif
 
   /*
@@ -212,12 +210,12 @@ int main(int argc, char **argv) {
     may need to rewrite the program logic consuming the error code.
     */
     kernelEvent_ct1_i = std::chrono::steady_clock::now();
-    
+
     *kernelEvent[i] = streams[i]->ext_oneapi_submit_barrier();
 
     // make the last stream wait for the kernel event to be recorded
-    
-     streams[nstreams - 1]->ext_oneapi_submit_barrier({*kernelEvent[i]});
+
+    streams[nstreams - 1]->ext_oneapi_submit_barrier({*kernelEvent[i]});
   }
 
   // queue a sum kernel and a copy back to host in the last stream.
@@ -232,9 +230,9 @@ int main(int argc, char **argv) {
           sum(d_a, nkernels, item_ct1, s_clocks_acc_ct1.get_pointer());
         });
   });
-  
-      stop_event_streams_nstreams_1 =
-          streams[nstreams - 1]->memcpy(a, d_a, sizeof(clock_t));
+
+  stop_event_streams_nstreams_1 =
+      streams[nstreams - 1]->memcpy(a, d_a, sizeof(clock_t));
 
   // at this point the CPU has dispatched all work for the GPU and can continue
   // processing other tasks in parallel
@@ -253,12 +251,12 @@ int main(int argc, char **argv) {
   q_ct1.wait_and_throw();
   stop_event_streams_nstreams_1.wait();
   stop_event_ct1 = std::chrono::steady_clock::now();
-  
+
   *stop_event = q_ct1.ext_oneapi_submit_barrier();
- 
-  elapsed_time = std::chrono::duration<float, std::milli>(
-                                           stop_event_ct1 - start_event_ct1)
-                                           .count();
+
+  elapsed_time =
+      std::chrono::duration<float, std::milli>(stop_event_ct1 - start_event_ct1)
+          .count();
 
   printf("Expected time for serial execution of %d kernels = %.3fs\n", nkernels,
          nkernels * kernel_time / 1000.0f);
