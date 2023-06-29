@@ -179,7 +179,7 @@ int main(int argc, char **argv) {
           });
     });
     total_clocks += time_clocks;
-   
+
     kernelEvent_ct1_i = std::chrono::steady_clock::now();
 
     *kernelEvent[i] = streams[i]->ext_oneapi_submit_barrier();
